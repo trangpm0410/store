@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/index :: dynamic(~{:: main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Product detail</title>
+</head>
+<body>
+<main th:object="${item}">
+    <!--        chi tiết sản phẩm-->
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex">
+                <div class="p-2 flex-fill">
+                    <img th:src="@{|/assets/images/*{image}|}">
+                </div>
+                <div class="p-2 flex-fill">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td colspan="2"><h3>[[*{name}]]</h3></td>
+                        </tr>
+                        <tr>
+                            <td>Giá</td>
+                            <td>[[*{price}]]</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo</td>
+                            <td>[[*{createDate}]]</td>
+                        </tr>
+                        <tr>
+                            <td>Loại</td>
+                            <td>[[*{category.name}]]</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-success">
+                                    <i class="bi bi-bag-plus">Thêm vào giỏ hàng</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--        sản phẩm cùng loại-->
+    <div class="card">
+        <div class="card-header">
+            HÀNG CÙNG LOẠI
+        </div>
+        <div class="card-body">
+            <ul>
+                <li th:each="p: *{category.products}">
+                    <a th:href="@{|/product/detail/${p.id}|}">
+                        [[${p.name}]]
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+th:replace="~{/layout/index :: dynamic(~{:: main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>CART</title>
+</head>
+<body>
+    <main>
+        <div class="card text-center mb-3" th:fragment="shopping_cart">
+            <div class="card-header">
+                SHOPPING CART
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    <tr ng-repeat="item in cart.items">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.price|number:2}}</td>
+                        <td><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" style="width: 50px"></td>
+                        <td>{{item.qty*item.price|number:2}}</td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="cart.remove(item.id)">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <button class="btn btn-danger" ng-click="cart.clear()">
+                    <i class="bi bi-trash-fill"></i>Clear
+                </button>
+                <a class="btn btn-primary" th:href="@{/order/checkout}">
+                    <i class="bi bi-cash"></i>Checkout
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

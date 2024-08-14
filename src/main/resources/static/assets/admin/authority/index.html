@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        PHÂN QUYỀN
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th></th>
+                <th ng-repeat="role in roles">{{role.name}}</th>
+            </tr>
+            <tr ng-repeat="acc in admins">
+                <td>{{acc.fullname}}</td>
+                <td ng-repeat="role in roles" class="text-center">
+                    <input type="checkbox"
+                           ng-checked="authority_of(acc, role)"
+                           ng-click="authority_change(acc, role)">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

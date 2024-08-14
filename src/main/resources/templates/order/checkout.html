@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/index :: dynamic(~{:: main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+<main>
+    <div th:replace="~{/cart/view :: shopping_cart}"></div>
+    <div class="card">
+        <div class="card-header">
+            ORDER PURCHASING
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6 mb-3">
+                    <label class="form-label">Người mua:</label>
+                    <input class="form-control" id="username" th:value="${#authentication.name}">
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label class="form-label">Ngày đặt hàng:</label>
+                    <div class="form-control">{{order.createDate| date: 'dd/MM/yyyy'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <label class="form-label"> Địa chỉ giao hàng:</label>
+                    <textarea ng-model="order.address" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-body-secondary">
+            <button ng-click="order.purchase()" class="btn btn-success">Purchase</button>
+        </div>
+    </div>
+</main>
+</body>
+</html>

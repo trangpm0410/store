@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/index :: dynamic(~{:: main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>ORDER DETAIL</title>
+</head>
+<body>
+<main th:object="${order}">
+    <div class="card mb-3">
+        <div class="card-header">
+            THÔNG TIN ĐẶT HÀNG
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label">Mã đơn hàng:</label>
+                    <input class="form-control" th:field="*{id}" readonly>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label">Người mua:</label>
+                    <input class="form-control" th:field="*{account.username}">
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label class="form-label">Ngày đặt hàng:</label>
+                    <input class="form-control" th:field="*{createDate}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <label class="form-label">Địa chỉ giao hàng:</label>
+                    <textarea class="form-control" th:field="*{address}" readonly/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            CHI TIẾT ĐƠN HÀNG
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+                <tr th:each="detail:*{orderDetails}" th:object="${detail}">
+                    <td>[[*{product.id}]]</td>
+                    <td>[[*{product.name}]]</td>
+                    <td>[[*{#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}]]</td>
+                    <td>[[*{quantity}]]</td>
+                    <td>[[*{#numbers.formatDecimal(price * quantity, 0, 'COMMA', 2, 'POINT')}]]</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>
